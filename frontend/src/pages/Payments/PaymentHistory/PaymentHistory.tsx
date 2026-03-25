@@ -126,7 +126,14 @@ const PaymentHistory: React.FC = () => {
           </thead>
           <tbody>
             {paginatedPayments.map((payment) => (
-              <tr key={payment.id} className="hover:bg-[rgba(98,255,255,0.05)] transition-colors last:border-b-0">
+              <tr 
+                key={payment.id} 
+                className="hover:bg-[rgba(98,255,255,0.05)] transition-colors last:border-b-0 cursor-pointer"
+                onClick={() => {
+                  setSelectedPayment(payment);
+                  setIsModalOpen(true);
+                }}
+              >
                 <td className={`${tdClass} font-medium text-text-secondary`}>{payment.date}</td>
                 <td className={tdClass}>
                   <Link to={`/dashboard/shipments/${payment.shipmentId}`} className="text-[#62ffff] font-semibold no-underline hover:underline">
@@ -196,6 +203,12 @@ const PaymentHistory: React.FC = () => {
           </button>
         </div>
       </div>
+
+      <PaymentDetailModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        payment={selectedPayment} 
+      />
     </div>
   );
 };
