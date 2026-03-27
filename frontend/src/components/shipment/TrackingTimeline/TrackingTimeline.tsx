@@ -53,7 +53,13 @@ const TrackingTimeline: React.FC<TrackingTimelineProps> = ({ milestones }) => {
   return (
     <div className="flex flex-col p-4 sm:p-2 max-w-[600px]" role="list" aria-label="Shipment tracking timeline">
       {milestones.map((milestone, index) => (
-        <div key={milestone.id} className="flex gap-4 sm:gap-3 relative" role="listitem">
+        <div
+          key={milestone.id}
+          className="flex gap-4 sm:gap-3 relative"
+          role="listitem"
+          aria-label={milestone.name}
+          aria-current={milestone.status === 'current' ? 'step' : undefined}
+        >
           {/* Marker */}
           <div className="flex flex-col items-center shrink-0">
             {getStatusIcon(milestone.status)}
