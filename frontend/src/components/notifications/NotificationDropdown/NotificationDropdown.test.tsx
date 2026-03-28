@@ -1,45 +1,46 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import NotificationDropdown from './NotificationDropdown';
 
+const renderWithRouter = (component: React.ReactElement) => {
+  return render(<MemoryRouter>{component}</MemoryRouter>);
+};
+
 describe('NotificationDropdown', () => {
-  test('opens and displays notifications, closes on ESC and outside click', async () => {
+  it('opens and displays notifications, closes on ESC and outside click', async () => {
     const user = userEvent.setup();
 
-    render(
-      <MemoryRouter>
-        <NotificationDropdown />
-      </MemoryRouter>
-    );
+    renderWithRouter(<NotificationDropdown />);
 
     const bell = screen.getByLabelText('Notifications');
-    // Open dropdown
     await user.click(bell);
 
     expect(screen.getByText('Notifications')).toBeInTheDocument();
 
-    // Expect five items shown
     const items = screen.getAllByRole('listitem');
     expect(items.length).toBeGreaterThanOrEqual(5);
 
-    // Close with Escape
     await user.keyboard('{Escape}');
     await waitFor(() => expect(screen.queryByText('Notifications')).not.toBeInTheDocument());
 
-    // Open again and close by clicking outside
     await user.click(bell);
     expect(screen.getByText('Notifications')).toBeInTheDocument();
     await user.click(document.body);
     await waitFor(() => expect(screen.queryByText('Notifications')).not.toBeInTheDocument());
   });
+
+  it('renders the bell icon with unread badge', () => {
+    renderWithRouter(<NotificationDropdown />);
+    const bellButton = screen.getByLabelText('Notifications');
+    expect(bellButton).toBeInTheDocument();
+
+    const badge = screen.getByText('3');
+    expect(badge).toBeInTheDocument();
+  });
 });
-import React from 'react';
-import { describe, it, expect } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import NotificationDropdown from './NotificationDropdown';
 
 const renderWithRouter = (component: React.ReactElement) => {
   return render(<MemoryRouter>{component}</MemoryRouter>);
