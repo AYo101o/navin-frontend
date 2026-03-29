@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, ArrowUpDown } from "lucide-react";
-import PaymentDetailModal from "../PaymentDetailModal/PaymentDetailModal";
 import { ChevronDown, ChevronLeft, ChevronRight, ExternalLink, ArrowUpDown, X } from "lucide-react";
 
 type PaymentStatus = "Pending" | "Escrowed" | "Released" | "Failed";
@@ -61,8 +59,6 @@ const PaymentHistory: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPayment, setSelectedPayment] = useState<Payment | null>(null);
   const itemsPerPage = 10;
 
   const allPayments: Payment[] = [

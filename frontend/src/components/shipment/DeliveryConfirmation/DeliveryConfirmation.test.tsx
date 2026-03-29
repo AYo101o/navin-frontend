@@ -12,7 +12,7 @@ describe('DeliveryConfirmation', () => {
   describe('render conditions', () => {
     it('renders when status is delivered', () => {
       render(<DeliveryConfirmation {...defaultProps} />);
-      expect(screen.getByText(/CONFIRM/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /confirm delivery/i })).toBeInTheDocument();
     });
 
     it('renders nothing when status is not delivered', () => {
@@ -101,16 +101,17 @@ describe('DeliveryConfirmation', () => {
   });
 
   describe('submission behavior', () => {
-    beforeEach(async () => {
+    // Each test renders its own instance to avoid pollution
+
+    it('submit button is disabled when no rating selected', async () => {
       render(<DeliveryConfirmation {...defaultProps} />);
       await userEvent.click(screen.getByRole('button', { name: /confirm receipt/i }));
-    });
-
-    it('submit button is disabled when no rating selected', () => {
       expect(screen.getByRole('button', { name: /submit confirmation/i })).toBeDisabled();
     });
 
     it('submit button is enabled after rating is selected', async () => {
+      render(<DeliveryConfirmation {...defaultProps} />);
+      await userEvent.click(screen.getByRole('button', { name: /confirm receipt/i }));
       const stars = screen.getAllByRole('radio');
       await userEvent.click(stars[3]);
       expect(screen.getByRole('button', { name: /submit confirmation/i })).not.toBeDisabled();
@@ -119,8 +120,9 @@ describe('DeliveryConfirmation', () => {
     it('does not submit without a rating', async () => {
       const onConfirm = vi.fn();
       render(<DeliveryConfirmation {...defaultProps} onConfirm={onConfirm} />);
-      await userEvent.click(screen.getAllByRole('button', { name: /confirm receipt/i })[0]);
-      fireEvent.submit(screen.getByRole('form', { hidden: true }) ?? document.querySelector('form')!);
+      await userEvent.click(screen.getByRole('button', { name: /confirm receipt/i }));
+      const form = document.querySelector('form');
+      if (form) fireEvent.submit(form);
       expect(onConfirm).not.toHaveBeenCalled();
     });
 
@@ -172,6 +174,7 @@ describe('DeliveryConfirmation', () => {
   });
 
   describe('post-submit state', () => {
+    // Each test renders its own instance to avoid pollution
     it('shows thank-you message after successful submission', async () => {
       const onConfirm = vi.fn().mockResolvedValue(undefined);
       render(<DeliveryConfirmation {...defaultProps} onConfirm={onConfirm} />);
