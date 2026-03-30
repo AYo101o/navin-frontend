@@ -396,7 +396,7 @@ const PaymentHistory: React.FC = () => {
 
             {/* Table */}
             <div className={`${tableContainerClass} md:overflow-x-auto`}>
-                <table className="w-full border-collapse md:min-w-[800px]">
+                <table className="w-full border-collapse md:min-w-200">
                     <thead className="bg-[rgba(19,186,186,0.1)]">
                         <tr>
                             <th
@@ -517,7 +517,7 @@ const PaymentHistory: React.FC = () => {
                             setCurrentPage((prev) => Math.max(1, prev - 1))
                         }
                         disabled={currentPage === 1}
-                        className="bg-transparent border border-[rgba(98,255,255,0.2)] text-text-primary px-3 py-2 rounded-md text-sm font-medium cursor-pointer flex items-center justify-center min-w-[36px] transition-all hover:not-disabled:bg-[rgba(98,255,255,0.1)] hover:not-disabled:border-[#62ffff] hover:not-disabled:text-[#62ffff] disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="bg-transparent border border-[rgba(98,255,255,0.2)] text-text-primary px-3 py-2 rounded-md text-sm font-medium cursor-pointer flex items-center justify-center min-w-9 transition-all hover:not-disabled:bg-[rgba(98,255,255,0.1)] hover:not-disabled:border-[#62ffff] hover:not-disabled:text-[#62ffff] disabled:opacity-30 disabled:cursor-not-allowed"
                     >
                         <ChevronLeft size={16} />
                     </button>
@@ -525,7 +525,7 @@ const PaymentHistory: React.FC = () => {
                         <button
                             key={i + 1}
                             onClick={() => setCurrentPage(i + 1)}
-                            className={`border px-3 py-2 rounded-md text-sm font-semibold cursor-pointer min-w-[36px] transition-all ${
+                            className={`border px-3 py-2 rounded-md text-sm font-semibold cursor-pointer min-w-9 transition-all ${
                                 currentPage === i + 1
                                     ? "bg-[#62ffff] border-[#62ffff] text-black"
                                     : "bg-transparent border-[rgba(98,255,255,0.2)] text-text-primary hover:bg-[rgba(98,255,255,0.1)] hover:border-[#62ffff] hover:text-[#62ffff]"
@@ -541,7 +541,7 @@ const PaymentHistory: React.FC = () => {
                             )
                         }
                         disabled={currentPage === totalPages}
-                        className="bg-transparent border border-[rgba(98,255,255,0.2)] text-text-primary px-3 py-2 rounded-md text-sm font-medium cursor-pointer flex items-center justify-center min-w-[36px] transition-all hover:not-disabled:bg-[rgba(98,255,255,0.1)] hover:not-disabled:border-[#62ffff] hover:not-disabled:text-[#62ffff] disabled:opacity-30 disabled:cursor-not-allowed"
+                        className="bg-transparent border border-[rgba(98,255,255,0.2)] text-text-primary px-3 py-2 rounded-md text-sm font-medium cursor-pointer flex items-center justify-center min-w-9 transition-all hover:not-disabled:bg-[rgba(98,255,255,0.1)] hover:not-disabled:border-[#62ffff] hover:not-disabled:text-[#62ffff] disabled:opacity-30 disabled:cursor-not-allowed"
                     >
                         <ChevronRight size={16} />
                     </button>
