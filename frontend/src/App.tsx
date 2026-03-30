@@ -39,9 +39,9 @@ const router = createBrowserRouter([
     path: "/forgot-password",
     element: <ForgotPassword />,
   },
-  // {
-  //   element: <ProtectedRoute />,
-  //   children: [
+  {
+    element: <ProtectedRoute />,
+    children: [
       {
         element: <DashboardLayout />,
         children: [
@@ -103,7 +103,8 @@ const router = createBrowserRouter([
           },
         ],
       },
-  
+    ],
+  },
 ]);
 
 function App() {
