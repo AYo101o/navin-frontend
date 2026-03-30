@@ -14,7 +14,7 @@ const ProtectedRoute: React.FC = () => {
                 aria-live="polite"
             >
                 <div
-                    className="w-[18px] h-[18px] border-2 border-slate-300 border-t-slate-900 rounded-full animate-spin"
+                    className="w-4.5 h-4.5 border-2 border-slate-300 border-t-slate-900 rounded-full animate-spin"
                     aria-hidden="true"
                 />
                 <span>Checking authentication...</span>
