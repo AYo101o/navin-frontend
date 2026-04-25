@@ -61,7 +61,7 @@ const MilestoneTimeline: React.FC<MilestoneTimelineProps> = ({ milestones }) => 
   };
 
   const hasExpandableContent = (m: MilestoneDetail) => !!(m.notes || m.sensorReadings);
-
+  //build
   return (
     <div className="flex flex-col p-6 w-full max-w-[900px] md:p-4 sm:p-3" role="list" aria-label="Detailed shipment milestone timeline">
       {milestones.map((milestone, index) => {
